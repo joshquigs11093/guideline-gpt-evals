@@ -25,3 +25,10 @@ def test_page_renders_without_exception(module: str) -> None:
     script = f"from eval_harness.ui.components import {module}\n{module}.render()\n"
     app = AppTest.from_string(script).run(timeout=60)
     assert not app.exception, f"{module} raised: {app.exception}"
+
+
+def test_dashboard_entry_navigation_runs() -> None:
+    """The real entry point must wire st.navigation without error (every page
+    callable is named `render`, so pathnames must be set explicitly)."""
+    app = AppTest.from_file("src/eval_harness/ui/dashboard.py").run(timeout=60)
+    assert not app.exception, f"dashboard entry raised: {app.exception}"

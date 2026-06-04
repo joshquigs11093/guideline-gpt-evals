@@ -18,6 +18,11 @@ import typer
 
 from eval_harness.config import get_settings
 from eval_harness.dataset.loader import EvalDatasetError, load_eval_set
+from eval_harness.dataset.validator import (
+    DatasetValidationError,
+    load_corpus_chunk_ids,
+    validate_eval_set,
+)
 from eval_harness.judges.base import get_judge_client
 from eval_harness.judges.correctness_judge import CorrectnessJudge
 from eval_harness.judges.faithfulness_judge import FaithfulnessJudge
@@ -83,12 +88,15 @@ def validate_dataset(
         Path | None, typer.Option(help="Eval set JSONL (defaults to EVAL_DATASET_PATH).")
     ] = None,
 ) -> None:
-    """Load an eval set and report how many questions validated."""
+    """Schema-validate an eval set, plus corpus consistency if a manifest exists."""
     settings = get_settings()
     path = dataset or settings.eval_dataset_path
     try:
         questions = load_eval_set(path)
-    except EvalDatasetError as exc:
+        manifest_path = path.parent / "corpus_manifest.json"
+        if manifest_path.exists():
+            validate_eval_set(questions, load_corpus_chunk_ids(manifest_path))
+    except (EvalDatasetError, DatasetValidationError) as exc:
         typer.secho(f"Invalid eval set: {exc}", fg=typer.colors.RED, err=True)
         raise typer.Exit(code=1) from exc
     typer.secho(f"OK: {len(questions)} questions validated in {path}", fg=typer.colors.GREEN)

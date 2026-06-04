@@ -132,8 +132,12 @@ GOOD_RATIONALE = {
 }
 
 
+def doc_chunk_ids(doc: str) -> list[str]:
+    return [f"{doc}::p{1 + i // 4}::c{i}" for i in range(CHUNKS_PER_DOC)]
+
+
 def all_chunk_ids() -> list[str]:
-    return [f"{doc}::p{1 + i // 4}::c{i}" for doc in DOCS for i in range(CHUNKS_PER_DOC)]
+    return [cid for doc in DOCS for cid in doc_chunk_ids(doc)]
 
 
 def build_eval_set(rng: random.Random) -> list[EvalQuestion]:
@@ -143,11 +147,9 @@ def build_eval_set(rng: random.Random) -> list[EvalQuestion]:
     plan = ["easy"] * 30 + ["medium"] * 30 + ["hard"] * 15
     for index, difficulty in enumerate(plan, start=1):
         doc = DOCS[index % len(DOCS)]
-        base = (index * 7) % CHUNKS_PER_DOC
-        relevant = [
-            f"{doc}::p{1 + (base + j) // 4}::c{(base + j) % CHUNKS_PER_DOC}"
-            for j in range(rng.randint(1, 3))
-        ]
+        # Sample relevant chunks from the doc's real chunk ids so every
+        # relevant_chunk_id is guaranteed to exist in the corpus manifest.
+        relevant = sorted(rng.sample(doc_chunk_ids(doc), rng.randint(1, 3)))
         is_hard = difficulty == "hard"
         questions.append(
             EvalQuestion(
@@ -180,6 +182,7 @@ def write_eval_set(questions: list[EvalQuestion]) -> None:
         "synthetic": True,
         "documents": dict.fromkeys(DOCS, CHUNKS_PER_DOC),
         "total_chunks": len(all_chunk_ids()),
+        "chunk_ids": all_chunk_ids(),
         "note": "Synthetic corpus manifest — placeholder chunk ids, not a real corpus.",
     }
     (EVAL_DIR / "corpus_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")

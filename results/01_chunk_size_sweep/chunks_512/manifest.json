@@ -5,8 +5,8 @@
   "run_timestamp": "2026-06-04T09:00:00",
   "guideline_gpt_version": "SYNTHETIC-DEMO",
   "num_questions": 75,
-  "total_cost_usd": 0.159589,
-  "total_latency_ms": 70461,
+  "total_cost_usd": 0.16057,
+  "total_latency_ms": 69292,
   "config": {
     "shared_config": {
       "retrieval_top_k": 20,

@@ -1,0 +1,23 @@
+# One-command results dashboard: `docker compose up --build`
+#
+# No API keys, no live experiments — the dashboard serves the pre-computed
+# results baked into the image. The bind mounts let you point it at updated
+# results / dataset on the host without rebuilding.
+
+services:
+  dashboard:
+    build: .
+    image: guideline-gpt-evals:latest
+    container_name: guideline-gpt-evals
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./results:/app/results:ro
+      - ./eval_dataset:/app/eval_dataset:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8501/_stcore/health',timeout=3).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

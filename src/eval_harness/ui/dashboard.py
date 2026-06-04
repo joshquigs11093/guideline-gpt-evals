@@ -37,13 +37,17 @@ def main() -> None:
     st.set_page_config(page_title="guideline-gpt-evals", page_icon="📊", layout="wide")
     _synthetic_banner()
 
+    # Explicit url_path per page: every page callable is named `render`, so
+    # without this Streamlit infers the same pathname for all and raises.
     pages = [
-        st.Page(overview.render, title="Overview", icon="📊", default=True),
-        st.Page(experiment_view.render, title="Experiments", icon="🧪"),
-        st.Page(comparison_view.render, title="Compare", icon="⚖️"),
-        st.Page(question_explorer.render, title="Question Explorer", icon="🔍"),
-        st.Page(failure_analysis.render, title="Failure Analysis", icon="❌"),
-        st.Page(methodology.render, title="Methodology", icon="📖"),
+        st.Page(overview.render, title="Overview", icon="📊", url_path="overview", default=True),
+        st.Page(experiment_view.render, title="Experiments", icon="🧪", url_path="experiments"),
+        st.Page(comparison_view.render, title="Compare", icon="⚖️", url_path="compare"),
+        st.Page(
+            question_explorer.render, title="Question Explorer", icon="🔍", url_path="explorer"
+        ),
+        st.Page(failure_analysis.render, title="Failure Analysis", icon="❌", url_path="failures"),
+        st.Page(methodology.render, title="Methodology", icon="📖", url_path="methodology"),
     ]
     st.navigation(pages).run()
 
