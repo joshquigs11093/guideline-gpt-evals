@@ -11,9 +11,18 @@ services:
     container_name: guideline-gpt-evals
     ports:
       - "8501:8501"
+    # Long-form bind mounts: the short `./path:/target:ro` form mis-parses on
+    # Windows because of the drive-letter colon (D:\...). Results/dataset are
+    # also baked into the image, so the app works even without these mounts.
     volumes:
-      - ./results:/app/results:ro
-      - ./eval_dataset:/app/eval_dataset:ro
+      - type: bind
+        source: ./results
+        target: /app/results
+        read_only: true
+      - type: bind
+        source: ./eval_dataset
+        target: /app/eval_dataset
+        read_only: true
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8501/_stcore/health',timeout=3).status==200 else 1)"]
