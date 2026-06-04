@@ -1,0 +1,22 @@
+experiment_id: "03_hybrid_vs_vector"
+name: "Hybrid vs vector-only vs BM25-only"
+description: >-
+  Compare retrieval strategies by disabling one arm of hybrid retrieval.
+  Hypothesis: hybrid wins overall; BM25 wins on rare technical terms; vector
+  wins on paraphrased questions.
+
+variants:
+  - name: "vector_only"
+    components:
+      retrieval: vector_only
+  - name: "bm25_only"
+    components:
+      retrieval: bm25_only
+  - name: "hybrid_rrf"
+    components:
+      retrieval: hybrid
+
+shared_config:
+  retrieval_top_k: 20
+  rerank_top_k: 5
+  llm_provider: "anthropic"

@@ -1,0 +1,18 @@
+experiment_id: "02_reranker_ablation"
+name: "Reranker ablation"
+description: >-
+  Cross-encoder reranking on vs off, holding retrieval_top_k=20. The "no rerank"
+  variant injects an identity reranker (the parent forbids rerank_top_k=0).
+  Hypothesis: reranking improves retrieval metrics, especially on hard cases.
+
+variants:
+  - name: "with_rerank"
+    # Parent default: cross-encoder reorders the fused candidates.
+  - name: "no_rerank"
+    components:
+      reranker: identity
+
+shared_config:
+  retrieval_top_k: 20
+  rerank_top_k: 5
+  llm_provider: "anthropic"

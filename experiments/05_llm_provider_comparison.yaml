@@ -1,0 +1,19 @@
+experiment_id: "05_llm_provider_comparison"
+name: "LLM provider comparison"
+description: >-
+  Same retrieval config, different generation model: Anthropic Haiku vs OpenAI
+  GPT-4o-mini. Hypothesis: comparable correctness, different latency profiles.
+
+variants:
+  - name: "anthropic_haiku"
+    overrides:
+      llm_provider: "anthropic"
+      anthropic_model: "claude-haiku-4-5-20251001"
+  - name: "openai_4o_mini"
+    overrides:
+      llm_provider: "openai"
+      openai_model: "gpt-4o-mini"
+
+shared_config:
+  retrieval_top_k: 20
+  rerank_top_k: 5

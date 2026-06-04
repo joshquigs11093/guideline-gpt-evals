@@ -1,0 +1,27 @@
+# NOTE: Executing the cite_sources / reason_first variants requires a
+# prompt-injectable pipeline, which is not yet wired (the parent bakes prompts in
+# as module constants). The runner raises a clear VariantError for those variants
+# until that support lands; the config is committed here so the experiment design
+# is reviewable. See the M5 feasibility notes.
+experiment_id: "06_prompt_variations"
+name: "Prompt variations"
+description: >-
+  Baseline prompt vs an explicit "cite your sources" instruction vs a
+  "reason before answering" instruction. Hypothesis: explicit citation improves
+  faithfulness; reasoning-first improves correctness on hard cases.
+
+variants:
+  - name: "baseline"
+    components:
+      prompt: baseline
+  - name: "cite_sources"
+    components:
+      prompt: cite_sources
+  - name: "reason_first"
+    components:
+      prompt: reason_first
+
+shared_config:
+  retrieval_top_k: 20
+  rerank_top_k: 5
+  llm_provider: "anthropic"

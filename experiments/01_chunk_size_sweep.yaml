@@ -1,0 +1,25 @@
+experiment_id: "01_chunk_size_sweep"
+name: "Chunk size sweep"
+description: >-
+  Compare retrieval quality and faithfulness at chunk sizes 256, 512, and 1024
+  (overlap = chunk_size / 8). Hypothesis: larger chunks improve faithfulness
+  (more context) but hurt retrieval precision (less focused chunks).
+
+variants:
+  - name: "chunks_256"
+    overrides:
+      chunk_size: 256
+      chunk_overlap: 32
+  - name: "chunks_512"
+    overrides:
+      chunk_size: 512
+      chunk_overlap: 64
+  - name: "chunks_1024"
+    overrides:
+      chunk_size: 1024
+      chunk_overlap: 128
+
+shared_config:
+  retrieval_top_k: 20
+  rerank_top_k: 5
+  llm_provider: "anthropic"

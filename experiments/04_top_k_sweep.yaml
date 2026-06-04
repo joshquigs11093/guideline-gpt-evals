@@ -1,0 +1,21 @@
+experiment_id: "04_top_k_sweep"
+name: "Top-k sweep"
+description: >-
+  Sweep the number of reranked chunks fed to the LLM (rerank_top_k in 3, 5, 10),
+  holding retrieval_top_k=20. Hypothesis: diminishing returns past 5, while cost
+  scales with context size.
+
+variants:
+  - name: "top_k_3"
+    overrides:
+      rerank_top_k: 3
+  - name: "top_k_5"
+    overrides:
+      rerank_top_k: 5
+  - name: "top_k_10"
+    overrides:
+      rerank_top_k: 10
+
+shared_config:
+  retrieval_top_k: 20
+  llm_provider: "anthropic"
