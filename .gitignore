@@ -1,0 +1,54 @@
+# Environments
+.env
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# AI coding tool artifacts
+.cursor/
+.cursorrules
+.cursorignore
+.aider*
+.continue/
+.github/copilot-instructions.md
+.claude/
+CLAUDE.md
+.windsurf/
+.codeium/
+.tabnine/
+
+# Eval-harness artifacts
+# NOTE: results/ is intentionally NOT ignored — pre-computed results are
+# committed so the dashboard is browseable without running anything (spec §16.1).
+.judge_cache/
+chroma_db/
+*.log
+.streamlit/secrets.toml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+Thumbs.db
+.DS_Store
