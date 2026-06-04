@@ -76,10 +76,16 @@ eval-harness run experiments/02_reranker_ablation.yaml
 
 ```bash
 uv pip install -e ".[dev,experiments]"
+# chromadb pulls an old opentelemetry-proto; force pure-Python protobuf so its
+# generated code loads against the modern protobuf runtime.
+export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python   # PowerShell: $env:PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python"
 ruff check src tests && ruff format --check src tests
 mypy src
 pytest --cov=eval_harness
 ```
+
+> The same `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` export is needed
+> before `eval-harness run`, since running experiments imports the chromadb stack.
 
 ## Project layout
 

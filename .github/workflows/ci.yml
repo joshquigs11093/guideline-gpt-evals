@@ -9,6 +9,12 @@ on:
 jobs:
   lint-type-test:
     runs-on: ubuntu-latest
+    env:
+      # chromadb pulls an old opentelemetry-proto whose generated protobufs fail
+      # against the modern protobuf runtime ("Descriptors cannot be created
+      # directly"). The pure-Python protobuf impl sidesteps it. Set at job level
+      # so it's present before Python (and pytest plugins) import.
+      PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
     strategy:
       fail-fast: false
       matrix:
