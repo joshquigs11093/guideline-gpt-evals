@@ -22,6 +22,12 @@ classifiers = [
 dependencies = [
     # The system under test, imported as a dependency (see [tool.uv.sources]).
     "guideline-gpt",
+    # Constrain the transitive chromadb (the parent only pins >=0.5): old 0.5.x
+    # builds bundle an opentelemetry whose generated protobufs require
+    # protobuf<=3.20, which breaks against the protobuf 4+/6+ resolved here
+    # ("Descriptors cannot be created directly"). Modern chromadb regenerated
+    # them; pin it so every platform resolves a working build.
+    "chromadb>=1.0",
     # Eval primitives — build on standards, don't reinvent (spec §16.6).
     "ragas>=0.2",
     "deepeval>=1.0",
