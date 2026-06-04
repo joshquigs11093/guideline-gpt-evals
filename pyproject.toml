@@ -118,8 +118,10 @@ warn_unused_ignores = true
 show_error_codes = true
 
 [[tool.mypy.overrides]]
-# Third-party libs that ship without (complete) type stubs.
+# Third-party libs that ship without (complete) type stubs. guideline-gpt is
+# itself typed but ships no py.typed marker, so mypy can't see its annotations.
 module = [
+    "guideline_gpt.*",
     "ragas.*",
     "deepeval.*",
     "plotly.*",
