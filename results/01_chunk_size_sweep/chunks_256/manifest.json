@@ -1,0 +1,29 @@
+{
+  "experiment_id": "01_chunk_size_sweep",
+  "experiment_name": "Chunk size sweep",
+  "variant": "chunks_256",
+  "run_timestamp": "2026-06-04T09:00:00",
+  "guideline_gpt_version": "SYNTHETIC-DEMO",
+  "num_questions": 75,
+  "total_cost_usd": 0.15927,
+  "total_latency_ms": 69863,
+  "config": {
+    "shared_config": {
+      "retrieval_top_k": 20,
+      "rerank_top_k": 5,
+      "llm_provider": "anthropic"
+    },
+    "variant": {
+      "name": "chunks_256",
+      "overrides": {
+        "chunk_size": 256,
+        "chunk_overlap": 32
+      },
+      "components": {
+        "reranker": "default",
+        "retrieval": "hybrid",
+        "prompt": "baseline"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "synthetic": true,
+  "documents": {
+    "bts_asthma_2024": 40,
+    "gold_copd_2024": 40,
+    "nice_pneumonia_2023": 40,
+    "ats_ards_2023": 40,
+    "surviving_sepsis_2021": 40
+  },
+  "total_chunks": 200,
+  "note": "Synthetic corpus manifest \u2014 placeholder chunk ids, not a real corpus."
+}

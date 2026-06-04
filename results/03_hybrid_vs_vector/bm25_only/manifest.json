@@ -1,0 +1,26 @@
+{
+  "experiment_id": "03_hybrid_vs_vector",
+  "experiment_name": "Hybrid vs vector-only vs BM25-only",
+  "variant": "bm25_only",
+  "run_timestamp": "2026-06-04T09:00:00",
+  "guideline_gpt_version": "SYNTHETIC-DEMO",
+  "num_questions": 75,
+  "total_cost_usd": 0.158184,
+  "total_latency_ms": 70635,
+  "config": {
+    "shared_config": {
+      "retrieval_top_k": 20,
+      "rerank_top_k": 5,
+      "llm_provider": "anthropic"
+    },
+    "variant": {
+      "name": "bm25_only",
+      "overrides": {},
+      "components": {
+        "reranker": "default",
+        "retrieval": "bm25_only",
+        "prompt": "baseline"
+      }
+    }
+  }
+}

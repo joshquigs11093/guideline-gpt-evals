@@ -1,0 +1,28 @@
+{
+  "experiment_id": "05_llm_provider_comparison",
+  "experiment_name": "LLM provider comparison",
+  "variant": "openai_4o_mini",
+  "run_timestamp": "2026-06-04T09:00:00",
+  "guideline_gpt_version": "SYNTHETIC-DEMO",
+  "num_questions": 75,
+  "total_cost_usd": 0.02255,
+  "total_latency_ms": 57371,
+  "config": {
+    "shared_config": {
+      "retrieval_top_k": 20,
+      "rerank_top_k": 5
+    },
+    "variant": {
+      "name": "openai_4o_mini",
+      "overrides": {
+        "llm_provider": "openai",
+        "openai_model": "gpt-4o-mini"
+      },
+      "components": {
+        "reranker": "default",
+        "retrieval": "hybrid",
+        "prompt": "baseline"
+      }
+    }
+  }
+}

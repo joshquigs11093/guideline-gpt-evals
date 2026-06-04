@@ -1,0 +1,28 @@
+{
+  "experiment_id": "05_llm_provider_comparison",
+  "experiment_name": "LLM provider comparison",
+  "variant": "anthropic_haiku",
+  "run_timestamp": "2026-06-04T09:00:00",
+  "guideline_gpt_version": "SYNTHETIC-DEMO",
+  "num_questions": 75,
+  "total_cost_usd": 0.160607,
+  "total_latency_ms": 70541,
+  "config": {
+    "shared_config": {
+      "retrieval_top_k": 20,
+      "rerank_top_k": 5
+    },
+    "variant": {
+      "name": "anthropic_haiku",
+      "overrides": {
+        "llm_provider": "anthropic",
+        "anthropic_model": "claude-haiku-4-5-20251001"
+      },
+      "components": {
+        "reranker": "default",
+        "retrieval": "hybrid",
+        "prompt": "baseline"
+      }
+    }
+  }
+}

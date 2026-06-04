@@ -1,0 +1,27 @@
+{
+  "experiment_id": "04_top_k_sweep",
+  "experiment_name": "Top-k sweep",
+  "variant": "top_k_3",
+  "run_timestamp": "2026-06-04T09:00:00",
+  "guideline_gpt_version": "SYNTHETIC-DEMO",
+  "num_questions": 75,
+  "total_cost_usd": 0.13515,
+  "total_latency_ms": 71414,
+  "config": {
+    "shared_config": {
+      "retrieval_top_k": 20,
+      "llm_provider": "anthropic"
+    },
+    "variant": {
+      "name": "top_k_3",
+      "overrides": {
+        "rerank_top_k": 3
+      },
+      "components": {
+        "reranker": "default",
+        "retrieval": "hybrid",
+        "prompt": "baseline"
+      }
+    }
+  }
+}
