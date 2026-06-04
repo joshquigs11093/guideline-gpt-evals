@@ -46,6 +46,9 @@ chroma_db/
 *.log
 .streamlit/secrets.toml
 
+# Internal build spec — kept locally, not published
+.spec/
+
 # Jupyter
 .ipynb_checkpoints/
 
